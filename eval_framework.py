@@ -129,7 +129,7 @@ class LocalModel(BaseModel):
                 self.model_name,
                 torch_dtype=torch.bfloat16,
                 device_map="auto",
-                # quantization_config = BitsAndBytesConfig(load_in_8bit=True),
+                quantization_config = BitsAndBytesConfig(load_in_4bit=True),
                 **kwargs
             )
             logger.info(f"Loaded local model: {self.model_name}")
@@ -152,11 +152,11 @@ class LocalModel(BaseModel):
         
         outputs = self.model.generate(
             input_ids,
-            temperature=0.4,
+            temperature=0.7,
             top_p=0.9,
             max_new_tokens=max_tokens,
             pad_token_id=self.tokenizer.eos_token_id,
-            do_sample=False
+            do_sample=True
         )
         
         response = outputs[0][input_ids.shape[-1]:]
