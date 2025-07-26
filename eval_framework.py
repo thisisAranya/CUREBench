@@ -64,7 +64,7 @@ class BaseModel(ABC):
         pass
     
     @abstractmethod
-    def inference(self, prompt: str, max_tokens: int = 1024) -> Tuple[str, List[Dict]]:
+    def inference(self, prompt: str, max_tokens: int = 2048) -> Tuple[str, List[Dict]]:
         """Run inference on the model
         
         Returns:
@@ -137,7 +137,7 @@ class LocalModel(BaseModel):
             logger.error(f"Failed to import local model dependencies: {e}")
             raise
     
-    def inference(self, prompt: str, max_tokens: int = 1024) -> Tuple[str, List[Dict]]:
+    def inference(self, prompt: str, max_tokens: int = 2048) -> Tuple[str, List[Dict]]:
         """Local model inference"""
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
